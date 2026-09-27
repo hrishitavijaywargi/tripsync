@@ -1,0 +1,152 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { Button, Card, ErrorNote, inputClass, Label, PageTitle } from "@/components/ui";
+import { api, saveIdentity } from "@/lib/client";
+import { GROUP_TYPES, PURPOSES } from "@/lib/constants";
+import type { GroupType, TripPurpose } from "@/lib/types";
+
+export default function CreateTripPage() {
+  const [tripName, setTripName] = useState("");
+  const [coordinatorName, setCoordinatorName] = useState("");
+  const [numberOfPeople, setNumberOfPeople] = useState(5);
+  const [groupType, setGroupType] = useState<GroupType | null>(null);
+  const [tripPurpose, setTripPurpose] = useState<TripPurpose | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [created, setCreated] = useState<{ id: string } | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const canSubmit = tripName.trim() && coordinatorName.trim() && numberOfPeople >= 2 && groupType && tripPurpose;
+
+  async function handleCreate(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await api<{ id: string; participantId: string }>("/api/trips", {
+        tripName,
+        coordinatorName,
+        numberOfPeople,
+        groupType,
+        tripPurpose,
+      });
+      saveIdentity(res.id, { participantId: res.participantId, name: coordinatorName.trim(), isCoordinator: true });
+      setCreated({ id: res.id });
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (created) {
+    const link = `${window.location.origin}/trip/${created.id}`;
+    return (
+      <div className="mx-auto max-w-xl">
+        <Card className="text-center">
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-50 text-2xl">🎉</div>
+          <h1 className="mt-4 text-2xl font-semibold">Your trip is ready!</h1>
+          <p className="mt-2 text-stone-600">Share this link with everyone in your group.</p>
+          <div className="mt-6 flex items-center gap-2 rounded-xl border border-stone-200 bg-stone-50 p-2 pl-4 text-left">
+            <code className="flex-1 truncate text-sm">{link}</code>
+            <Button
+              onClick={async () => {
+                await navigator.clipboard.writeText(link);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+            >
+              {copied ? "Copied ✓" : "Copy Link"}
+            </Button>
+          </div>
+          <p className="mt-4 text-xs text-stone-500">Everyone uses this same link to submit their preferences.</p>
+          <div className="mt-6 border-t border-stone-100 pt-6">
+            <Link
+              href={`/trip/${created.id}`}
+              className="inline-flex rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-stone-700"
+            >
+              Add my preferences →
+            </Link>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mx-auto max-w-2xl">
+      <PageTitle eyebrow="New trip" title="Plan a trip" subtitle="Set up the basics. Your group adds their preferences next." />
+      <form onSubmit={handleCreate} className="space-y-6">
+        <Card className="space-y-5">
+          <div>
+            <Label>Trip name</Label>
+            <input className={inputClass} placeholder="Goa 2026" value={tripName} onChange={(e) => setTripName(e.target.value)} maxLength={80} />
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div>
+              <Label>Coordinator name</Label>
+              <input className={inputClass} placeholder="Riya" value={coordinatorName} onChange={(e) => setCoordinatorName(e.target.value)} maxLength={60} />
+            </div>
+            <div>
+              <Label hint="Including you">Number of people</Label>
+              <div className="flex items-center gap-2">
+                <button type="button" className="h-10 w-10 rounded-xl border border-stone-300 text-lg hover:bg-stone-50" onClick={() => setNumberOfPeople((n) => Math.max(2, n - 1))}>−</button>
+                <input
+                  type="number"
+                  min={2}
+                  max={30}
+                  className={`${inputClass} text-center`}
+                  value={numberOfPeople}
+                  onChange={(e) => setNumberOfPeople(Math.min(30, Math.max(2, Number(e.target.value) || 2)))}
+                />
+                <button type="button" className="h-10 w-10 rounded-xl border border-stone-300 text-lg hover:bg-stone-50" onClick={() => setNumberOfPeople((n) => Math.min(30, n + 1))}>+</button>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <div>
+          <h2 className="mb-3 font-medium">Who are you planning with?</h2>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {GROUP_TYPES.map((g) => (
+              <ChoiceCard key={g.value} selected={groupType === g.value} onClick={() => setGroupType(g.value)} emoji={g.emoji} title={g.label} hint={g.hint} />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h2 className="mb-3 font-medium">What&apos;s the purpose of the trip?</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {PURPOSES.map((p) => (
+              <ChoiceCard key={p.value} selected={tripPurpose === p.value} onClick={() => setTripPurpose(p.value)} emoji={p.emoji} title={p.label} />
+            ))}
+          </div>
+        </div>
+
+        <ErrorNote message={error} />
+        <Button type="submit" disabled={!canSubmit} loading={loading} className="w-full py-3 text-base">
+          Create trip
+        </Button>
+      </form>
+    </div>
+  );
+}
+
+function ChoiceCard(props: { selected: boolean; onClick: () => void; emoji: string; title: string; hint?: string }) {
+  return (
+    <button
+      type="button"
+      onClick={props.onClick}
+      aria-pressed={props.selected}
+      className={`rounded-2xl border-2 bg-white p-5 text-left transition ${
+        props.selected ? "border-emerald-500 ring-4 ring-emerald-500/10" : "border-stone-200 hover:border-stone-300"
+      }`}
+    >
+      <div className="text-3xl">{props.emoji}</div>
+      <div className="mt-3 font-medium">{props.title}</div>
+      {props.hint && <div className="mt-0.5 text-sm text-stone-500">{props.hint}</div>}
+    </button>
+  );
+}

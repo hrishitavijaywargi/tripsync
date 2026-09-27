@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: #fafaf9;
+  color: #1c1917;
+}
+
+/* Native date inputs: keep them readable on the light theme */
+input[type="date"] {
+  color-scheme: light;
+}
