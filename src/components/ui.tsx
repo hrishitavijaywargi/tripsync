@@ -6,7 +6,7 @@ type Variant = "primary" | "secondary" | "ghost";
 
 // Pill buttons that invert on hover (Swiss high-contrast style).
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-ink text-paper border border-ink hover:bg-paper hover:text-ink",
+  primary: "bg-accent text-surface border border-accent hover:bg-ink hover:border-ink",
   secondary: "bg-transparent text-ink border border-charcoal hover:bg-charcoal hover:text-paper",
   ghost: "text-mute hover:text-ink",
 };
@@ -32,13 +32,13 @@ export function Button({
 
 export const linkButton = {
   primary:
-    "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-ink px-6 py-3 text-sm font-bold tracking-wide text-paper transition-colors duration-200 hover:bg-paper hover:text-ink",
+    "inline-flex items-center justify-center gap-2 rounded-full border border-accent bg-accent px-6 py-3 text-sm font-bold tracking-wide text-surface transition-colors duration-200 hover:border-ink hover:bg-ink",
   secondary:
     "inline-flex items-center justify-center gap-2 rounded-full border border-charcoal px-6 py-3 text-sm font-bold tracking-wide transition-colors duration-200 hover:bg-charcoal hover:text-paper",
 };
 
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-sm border border-line bg-white p-5 sm:p-7 ${className}`}>{children}</div>;
+  return <div className={`rounded-sm border border-line bg-surface p-5 sm:p-7 ${className}`}>{children}</div>;
 }
 
 export function Spinner({ className = "" }: { className?: string }) {
@@ -73,11 +73,11 @@ export function Label({ children, hint }: { children: ReactNode; hint?: string }
 }
 
 export const inputClass =
-  "w-full rounded-sm border border-charcoal/20 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-soft focus:border-ink";
+  "w-full rounded-sm border border-charcoal/20 bg-surface px-4 py-3 text-sm outline-none transition-colors placeholder:text-soft focus:border-ink";
 
 export function ErrorNote({ message }: { message: string | null }) {
   if (!message) return null;
-  return <p className="border-l-2 border-rose-600 bg-white px-4 py-3 text-sm text-rose-700">{message}</p>;
+  return <p className="border-l-2 border-clay bg-surface px-4 py-3 text-sm text-clay">{message}</p>;
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
@@ -88,7 +88,7 @@ export function PageTitle({ eyebrow, title, subtitle }: { eyebrow?: string; titl
   return (
     <div className="mb-10">
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h1 className="text-4xl font-bold leading-[0.95] tracking-[-0.02em] sm:text-6xl">{title}</h1>
+      <h1 className="text-4xl font-bold leading-[0.95] tracking-[-0.005em] sm:text-6xl">{title}</h1>
       {subtitle && <p className="mt-4 max-w-2xl text-mute">{subtitle}</p>}
     </div>
   );
@@ -96,7 +96,7 @@ export function PageTitle({ eyebrow, title, subtitle }: { eyebrow?: string; titl
 
 /** Single serif-italic keyword inside a Clash Display headline. */
 export function Accent({ children }: { children: ReactNode }) {
-  return <span className="font-serif font-normal italic tracking-normal">{children}</span>;
+  return <span className="font-serif font-normal italic tracking-normal text-accent">{children}</span>;
 }
 
 /** The typographic echo stack: word + 4 fading grey copies behind it. */

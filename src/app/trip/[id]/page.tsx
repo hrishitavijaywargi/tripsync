@@ -149,7 +149,7 @@ function ReadyPanel(props: {
       <Card className="border-charcoal">
         <p className="font-bold">Trip options are ready.</p>
         <div className="mt-3 flex flex-col gap-2">
-          <Link href={`/trip/${props.tripId}/results`} className="text-center inline-flex items-center justify-center rounded-full border border-ink bg-ink px-6 py-3 text-sm font-bold tracking-wide text-paper transition-colors hover:bg-paper hover:text-ink">
+          <Link href={`/trip/${props.tripId}/results`} className="text-center inline-flex items-center justify-center rounded-full border border-accent bg-accent px-6 py-3 text-sm font-bold tracking-wide text-surface transition-colors hover:border-ink hover:bg-ink">
             View options
           </Link>
           {props.isCoordinator && (

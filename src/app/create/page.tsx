@@ -65,7 +65,7 @@ export default function CreateTripPage() {
           <div className="mt-6 border-t border-line pt-6">
             <Link
               href={`/trip/${created.id}`}
-              className="inline-flex inline-flex items-center justify-center rounded-full border border-ink bg-ink px-6 py-3 text-sm font-bold tracking-wide text-paper transition-colors hover:bg-paper hover:text-ink"
+              className="inline-flex inline-flex items-center justify-center rounded-full border border-accent bg-accent px-6 py-3 text-sm font-bold tracking-wide text-surface transition-colors hover:border-ink hover:bg-ink"
             >
               Add my preferences →
             </Link>
@@ -140,8 +140,8 @@ function ChoiceCard(props: { selected: boolean; onClick: () => void; emoji: stri
       type="button"
       onClick={props.onClick}
       aria-pressed={props.selected}
-      className={`rounded-sm border-2 bg-white p-5 text-left transition ${
-        props.selected ? "border-ink bg-ink text-paper" : "border-line hover:border-charcoal"
+      className={`rounded-sm border-2 p-5 text-left transition ${
+        props.selected ? "border-accent bg-sage" : "border-line bg-surface hover:border-charcoal"
       }`}
     >
       <div className="text-3xl">{props.emoji}</div>

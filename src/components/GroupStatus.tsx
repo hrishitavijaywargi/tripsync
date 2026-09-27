@@ -16,7 +16,7 @@ export function GroupStatus({ trip }: { trip: TripWithParticipants }) {
         <b className="text-ink">{submitted} of {trip.number_of_people}</b> people have submitted
       </p>
       <div className="mt-3 h-2 overflow-hidden rounded-full bg-charcoal/10">
-        <div className="h-full rounded-full bg-ink transition-all" style={{ width: `${pct}%` }} />
+        <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${pct}%` }} />
       </div>
       <ul className="mt-4 space-y-2 text-sm">
         {trip.participants.map((p) => (

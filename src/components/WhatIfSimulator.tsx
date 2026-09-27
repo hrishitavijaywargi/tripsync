@@ -68,7 +68,7 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
   }
 
   return (
-    <div className="rounded-sm border border-charcoal bg-white p-4 sm:p-6">
+    <div className="rounded-sm border border-charcoal bg-surface p-4 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold">🔄 What If?</h2>
@@ -89,8 +89,8 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
                 onClick={() => setKind(k.kind)}
                 disabled={k.kind === "dealbreaker" && withDealBreakers.length === 0}
                 aria-pressed={kind === k.kind}
-                className={`rounded-sm border-2 bg-white p-4 text-left transition disabled:opacity-40 ${
-                  kind === k.kind ? "border-ink bg-ink text-paper" : "border-line hover:border-charcoal"
+                className={`rounded-sm border-2 p-4 text-left transition disabled:opacity-40 ${
+                  kind === k.kind ? "border-accent bg-sage" : "border-line bg-surface hover:border-charcoal"
                 }`}
               >
                 <div className="text-2xl">{k.emoji}</div>
@@ -170,7 +170,7 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
 
       {result && (
         <div className="mt-6 space-y-5">
-          <Card className="bg-white">
+          <Card className="bg-surface">
             <div className="text-xs font-semibold uppercase tracking-wider text-mute">The change</div>
             <p className="mt-1 text-sm">{result.change_description}</p>
           </Card>
@@ -197,7 +197,7 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
                       <span className="font-bold">{o.destination}</span>
                       <span>
                         {!before ? (
-                          <span className="mr-2 rounded-full bg-ink px-2 py-0.5 text-xs text-white">New option</span>
+                          <span className="mr-2 rounded-full bg-accent px-2 py-0.5 text-xs text-surface">New option</span>
                         ) : (
                           <Delta from={fitCount(before)} to={fitCount(o)} />
                         )}
@@ -277,7 +277,7 @@ function Delta({ from, to }: { from: number; to: number }) {
   if (from === to) return null;
   const up = to > from;
   return (
-    <span className={`mr-2 rounded-full px-2 py-0.5 text-xs ${up ? "bg-ink text-paper" : "border border-charcoal/30 text-mute"}`}>
+    <span className={`mr-2 rounded-full px-2 py-0.5 text-xs ${up ? "bg-accent text-surface" : "border border-clay/40 bg-clay/10 text-clay"}`}>
       {up ? "▲" : "▼"} {from}→{to}
     </span>
   );

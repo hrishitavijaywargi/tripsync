@@ -57,7 +57,7 @@ export default function DecidePage() {
       </div>
 
       {!me && (
-        <div className="mb-6 border-l-2 border-ink bg-white p-4 text-sm">
+        <div className="mb-6 border-l-2 border-sand bg-sand/15 p-4 text-sm">
           To choose an option, first <Link href={`/trip/${id}`} className="font-bold underline">open the trip and enter your name</Link> on this device.
         </div>
       )}
@@ -73,7 +73,7 @@ export default function DecidePage() {
               option={o}
               letter={String.fromCharCode(65 + i)}
               total={total}
-              badge={mine ? <span className="rounded-full bg-ink px-2 py-0.5 text-[10px] text-white">Your pick</span> : null}
+              badge={mine ? <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] text-surface">Your pick</span> : null}
               footer={
                 <div className="space-y-3">
                   <div className="text-sm text-mute">

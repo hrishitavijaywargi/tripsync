@@ -32,7 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur-md">
           <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-6">
             <Link href="/" className="font-display text-xl font-bold tracking-tight">
-              TRIPSYNC<span className="text-soft">.</span>
+              TRIPSYNC<span className="text-accent">.</span>
             </Link>
             <nav className="flex items-center gap-5 text-sm uppercase tracking-wide sm:gap-8">
               <Link href="/join" className="transition-colors duration-[120ms] hover:text-soft">Join a trip</Link>
@@ -48,10 +48,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:px-6 sm:py-14">{children}</main>
 
-        <footer className="border-t border-white/5 bg-charcoal text-[#f6f6f6]/60">
+        <footer className="border-t border-white/5 bg-charcoal text-paper/60">
           <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
             <div>
-              <div className="font-display text-xl font-bold text-[#f6f6f6]">TRIPSYNC.</div>
+              <div className="font-display text-xl font-bold text-paper">TRIPSYNC<span className="text-sand">.</span></div>
               <p className="mt-3 text-sm leading-relaxed">
                 One link. Everyone&apos;s preferences. A clear picture of what works — so your group makes one decision.
               </p>
@@ -59,7 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <FooterCol title="Product" links={[["Plan a trip", "/create"], ["Join a trip", "/join"]]} />
             <FooterCol title="How it works" links={[["Collect preferences", "/create"], ["Compare options", "/create"], ["What-If simulator", "/create"]]} />
             <div>
-              <div className="text-xs font-bold uppercase tracking-widest text-[#f6f6f6]">Good to know</div>
+              <div className="text-xs font-bold uppercase tracking-widest text-paper">Good to know</div>
               <ul className="mt-4 space-y-2 text-sm">
                 <li>Prices are AI estimates</li>
                 <li>Nothing is booked</li>
@@ -76,11 +76,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
   return (
     <div>
-      <div className="text-xs font-bold uppercase tracking-widest text-[#f6f6f6]">{title}</div>
+      <div className="text-xs font-bold uppercase tracking-widest text-paper">{title}</div>
       <ul className="mt-4 space-y-2 text-sm">
         {links.map(([label, href]) => (
           <li key={label}>
-            <Link href={href} className="transition-colors hover:text-[#f6f6f6]">{label}</Link>
+            <Link href={href} className="transition-colors hover:text-paper">{label}</Link>
           </li>
         ))}
       </ul>

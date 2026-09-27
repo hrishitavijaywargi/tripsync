@@ -126,7 +126,7 @@ function Chip({ selected, onClick, children, block }: { selected: boolean; onCli
       onClick={onClick}
       aria-pressed={selected}
       className={`rounded-full border px-4 py-2 text-sm transition ${block ? "w-full" : ""} ${
-        selected ? "border-ink bg-ink text-paper" : "border-charcoal/20 bg-white hover:border-charcoal"
+        selected ? "border-accent bg-accent text-surface" : "border-charcoal/20 bg-surface hover:border-charcoal"
       }`}
     >
       {children}

@@ -2,12 +2,17 @@
 
 /* High-contrast Swiss palette + type (Clash Display / Satoshi from Fontshare, loaded in layout.tsx) */
 @theme inline {
-  --color-paper: #f2f2f2;
-  --color-ink: #111111;
-  --color-charcoal: #1e1e1e;
-  --color-mute: #838282;
-  --color-soft: #b6b5b5;
-  --color-line: rgb(30 30 30 / 0.1);
+  --color-paper: #f3efe6;
+  --color-surface: #fbf9f4;
+  --color-ink: #13241b;
+  --color-charcoal: #1b3325;
+  --color-mute: #6f7a70;
+  --color-soft: #a9b3a6;
+  --color-accent: #2f7d4f;
+  --color-sage: #dce8d9;
+  --color-sand: #e3b95f;
+  --color-clay: #c4573a;
+  --color-line: rgb(19 36 27 / 0.12);
   --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Clash Display", "Satoshi", ui-sans-serif, sans-serif;
   --font-serif: var(--font-instrument-serif), Georgia, serif;
@@ -25,7 +30,7 @@ h2,
 h3,
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.005em;
 }
 
 /* Typographic Echo Stack: 4 grey copies behind the word, each nudged up-left by 0.04em */
@@ -41,10 +46,10 @@ h3,
   user-select: none;
   z-index: -1;
 }
-.echo > .echo-layer:nth-child(1) { transform: translate(-0.04em, -0.04em); color: #bfbfbf; }
-.echo > .echo-layer:nth-child(2) { transform: translate(-0.08em, -0.08em); color: #c9c9c9; }
-.echo > .echo-layer:nth-child(3) { transform: translate(-0.12em, -0.12em); color: #d1d1d1; }
-.echo > .echo-layer:nth-child(4) { transform: translate(-0.16em, -0.16em); color: #d9d9d9; }
+.echo > .echo-layer:nth-child(1) { transform: translate(-0.04em, -0.04em); color: #9dba99; }
+.echo > .echo-layer:nth-child(2) { transform: translate(-0.08em, -0.08em); color: #b3cbaf; }
+.echo > .echo-layer:nth-child(3) { transform: translate(-0.12em, -0.12em); color: #c7d9c3; }
+.echo > .echo-layer:nth-child(4) { transform: translate(-0.16em, -0.16em); color: #d9e5d5; }
 
 /* Reveal on load: clip-path wipe used by hero + showcase */
 @keyframes reveal {
@@ -57,6 +62,11 @@ h3,
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { animation: none; }
+}
+
+::selection {
+  background: var(--color-sage);
+  color: var(--color-ink);
 }
 
 input[type="date"] {

@@ -29,7 +29,7 @@ export default function Home() {
         <div className="reveal font-display text-[17vw] font-bold leading-[0.9] tracking-[-0.05em] sm:text-[13vw] lg:text-[180px]">
           <Echo text="DECIDE." />
         </div>
-        <h1 className="mt-10 max-w-3xl text-3xl font-bold leading-[0.95] tracking-[-0.015em] sm:text-5xl">
+        <h1 className="mt-10 max-w-3xl text-3xl font-bold leading-[0.95] tracking-[-0.005em] sm:text-5xl">
           Stop planning your trip in <Accent>1,200</Accent> WhatsApp messages.
         </h1>
         <p className="mt-6 max-w-xl text-mute">
@@ -44,7 +44,7 @@ export default function Home() {
       {/* PHILOSOPHY */}
       <section className="py-20 text-center">
         <div className="mx-auto h-24 w-px bg-charcoal/10" />
-        <p className="mx-auto mt-12 max-w-4xl font-display text-4xl font-bold leading-[1] tracking-[-0.02em] sm:text-6xl">
+        <p className="mx-auto mt-12 max-w-4xl font-display text-4xl font-bold leading-[1] tracking-[-0.005em] sm:text-6xl">
           Five people. Five budgets. <Accent>One</Accent> decision.
         </p>
         <div className="mx-auto mt-16 grid max-w-5xl gap-8 text-left sm:grid-cols-3">
@@ -59,7 +59,7 @@ export default function Home() {
 
       {/* ASYMMETRICAL SHOWCASE — the product, instead of photos */}
       <section className="grid grid-cols-1 gap-4 py-10 md:grid-cols-12">
-        <div className="group rounded-sm border border-line bg-white p-7 transition duration-700 ease-[var(--ease-swiss)] hover:scale-[1.01] md:col-span-8">
+        <div className="group rounded-sm border border-line bg-surface p-7 transition duration-700 ease-[var(--ease-swiss)] hover:scale-[1.01] md:col-span-8">
           <div className="flex items-start justify-between">
             <div>
               <div className="text-xs font-bold uppercase tracking-[0.2em] text-mute">Option A</div>
@@ -81,21 +81,21 @@ export default function Home() {
           </ul>
         </div>
 
-        <div className="group relative flex min-h-[420px] flex-col items-center justify-center overflow-hidden rounded-full bg-ink px-6 text-center text-paper md:col-span-4">
+        <div className="group relative flex min-h-[420px] flex-col items-center justify-center overflow-hidden rounded-full bg-accent px-6 text-center text-surface md:col-span-4">
           <div className="font-display text-7xl font-bold tracking-[-0.05em] transition duration-700 ease-[var(--ease-swiss)] group-hover:scale-105">5/5</div>
-          <div className="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-soft">after “What if?”</div>
+          <div className="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-sage">after “What if?”</div>
           <div className="absolute inset-x-8 bottom-16 rounded-full border border-paper/30 py-2 text-xs opacity-0 transition duration-500 group-hover:opacity-100">
             Budget +₹5k → Aisha fits
           </div>
         </div>
 
-        <div className="group flex aspect-square flex-col items-center justify-center rounded-full border border-charcoal bg-paper text-center transition duration-700 ease-[var(--ease-swiss)] hover:bg-white md:col-span-5">
+        <div className="group flex aspect-square flex-col items-center justify-center rounded-full border border-charcoal/15 bg-sage text-center transition duration-700 ease-[var(--ease-swiss)] hover:bg-surface md:col-span-5">
           <div className="text-xs font-bold uppercase tracking-[0.2em] text-mute">The unique bit</div>
           <div className="mt-3 font-display text-6xl font-bold tracking-[-0.05em] transition duration-700 group-hover:scale-105">What <Accent>if?</Accent></div>
           <p className="mt-3 max-w-[16rem] text-sm text-mute">Test one change. Nobody&apos;s real answers move.</p>
         </div>
 
-        <div className="rounded-sm border border-line bg-white p-7 md:col-span-7">
+        <div className="rounded-sm border border-line bg-surface p-7 md:col-span-7">
           <div className="text-xs font-bold uppercase tracking-[0.2em] text-mute">Before → After</div>
           <div className="mt-6 grid grid-cols-2 gap-6">
             {[
@@ -108,7 +108,7 @@ export default function Home() {
                   {(rows as string[][]).map(([d, f]) => (
                     <li key={d} className="flex justify-between">
                       <span>{d}</span>
-                      <span className={f === "new" ? "rounded-full bg-ink px-2 text-xs leading-5 text-paper" : "font-bold"}>{f}</span>
+                      <span className={f === "new" ? "rounded-full bg-accent px-2 text-xs leading-5 text-surface" : "font-bold"}>{f}</span>
                     </li>
                   ))}
                 </ul>
@@ -122,9 +122,9 @@ export default function Home() {
       {/* SERVICE CARDS */}
       <section className="grid gap-4 py-16 sm:grid-cols-3">
         {SERVICES.map((s) => (
-          <Link key={s.n} href={s.href} className="group rounded-sm border border-line p-7 transition-colors duration-300 hover:bg-white">
-            <div className="grid h-16 w-16 place-items-center border border-charcoal transition-transform duration-500 group-hover:rotate-12">
-              <span className={`block h-6 w-6 bg-ink ${s.shape}`} />
+          <Link key={s.n} href={s.href} className="group rounded-sm border border-line p-7 transition-colors duration-300 hover:bg-surface">
+            <div className="grid h-16 w-16 place-items-center border border-charcoal transition-transform duration-500 group-hover:rotate-12 group-hover:border-accent">
+              <span className={`block h-6 w-6 bg-accent ${s.shape}`} />
             </div>
             <div className="mt-8 text-xs font-bold tracking-widest text-mute">{s.n}</div>
             <h3 className="mt-1 text-2xl font-bold">{s.title}</h3>
