@@ -197,7 +197,7 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
                       <span className="font-bold">{o.destination}</span>
                       <span>
                         {!before ? (
-                          <span className="mr-2 rounded-full bg-accent px-2 py-0.5 text-xs text-surface">New option</span>
+                          <span className="mr-2 rounded-full bg-accent px-2 py-0.5 text-xs text-ink">New option</span>
                         ) : (
                           <Delta from={fitCount(before)} to={fitCount(o)} />
                         )}
@@ -277,7 +277,7 @@ function Delta({ from, to }: { from: number; to: number }) {
   if (from === to) return null;
   const up = to > from;
   return (
-    <span className={`mr-2 rounded-full px-2 py-0.5 text-xs ${up ? "bg-accent text-surface" : "border border-clay/40 bg-clay/10 text-clay"}`}>
+    <span className={`mr-2 rounded-full px-2 py-0.5 text-xs ${up ? "bg-ink text-white" : "border border-clay/40 bg-clay/10 text-clay"}`}>
       {up ? "▲" : "▼"} {from}→{to}
     </span>
   );

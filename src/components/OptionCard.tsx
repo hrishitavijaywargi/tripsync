@@ -28,7 +28,7 @@ export function OptionCard({
           </div>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight">{option.destination}</h2>
         </div>
-        <div className={`shrink-0 rounded-sm px-3 py-2 text-center ${allGood ? "bg-accent text-surface" : "border border-charcoal text-ink"}`}>
+        <div className={`shrink-0 rounded-sm px-3 py-2 text-center ${allGood ? "bg-ink text-white" : "border border-charcoal text-ink"}`}>
           <div className="text-lg font-semibold leading-tight">{good}/{total}</div>
           <div className="text-[10px] uppercase tracking-wide">group fit</div>
         </div>

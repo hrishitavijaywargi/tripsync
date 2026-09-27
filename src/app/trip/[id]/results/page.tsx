@@ -41,7 +41,7 @@ export default function ResultsPage() {
         )}
         <Link
           href={`/trip/${id}/decide`}
-          className="inline-flex items-center justify-center rounded-full border border-ink bg-ink px-6 py-3 text-sm font-bold tracking-wide text-surface transition-colors hover:border-accent hover:bg-accent"
+          className="inline-flex items-center justify-center border border-ink/20 px-7 py-3.5 text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-500 hover:border-accent hover:text-accent"
         >
           Ready to decide →
         </Link>

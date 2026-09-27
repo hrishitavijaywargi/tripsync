@@ -4,10 +4,10 @@ import type { Fit, TripOption } from "@/lib/types";
 
 type Variant = "primary" | "secondary" | "ghost";
 
-// Pill buttons that invert on hover (Swiss high-contrast style).
+// Square, tracked-out buttons: black that warms to gold on hover (luxury editorial style).
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-accent text-surface border border-accent hover:bg-ink hover:border-ink",
-  secondary: "bg-transparent text-ink border border-charcoal hover:bg-charcoal hover:text-paper",
+  primary: "bg-ink text-white border border-ink hover:bg-accent hover:border-accent",
+  secondary: "bg-transparent text-ink border border-ink/20 hover:border-accent hover:text-accent",
   ghost: "text-mute hover:text-ink",
 };
 
@@ -22,7 +22,7 @@ export function Button({
     <button
       {...props}
       disabled={props.disabled || loading}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold tracking-wide transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${VARIANTS[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 px-7 py-3.5 text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-500 disabled:cursor-not-allowed disabled:opacity-40 ${VARIANTS[variant]} ${className}`}
     >
       {loading && <Spinner />}
       {children}
@@ -32,13 +32,13 @@ export function Button({
 
 export const linkButton = {
   primary:
-    "inline-flex items-center justify-center gap-2 rounded-full border border-accent bg-accent px-6 py-3 text-sm font-bold tracking-wide text-surface transition-colors duration-200 hover:border-ink hover:bg-ink",
+    "inline-flex items-center justify-center gap-2 border border-ink bg-ink px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors duration-500 hover:border-accent hover:bg-accent",
   secondary:
-    "inline-flex items-center justify-center gap-2 rounded-full border border-charcoal px-6 py-3 text-sm font-bold tracking-wide transition-colors duration-200 hover:bg-charcoal hover:text-paper",
+    "inline-flex items-center justify-center gap-2 border-b border-ink pb-1 text-xs font-bold uppercase tracking-widest transition-colors hover:border-accent hover:text-accent",
 };
 
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-sm border border-line bg-surface p-5 sm:p-7 ${className}`}>{children}</div>;
+  return <div className={`border border-line bg-surface p-5 sm:p-8 ${className}`}>{children}</div>;
 }
 
 export function Spinner({ className = "" }: { className?: string }) {
@@ -66,14 +66,14 @@ export function fitCount(option: TripOption) {
 export function Label({ children, hint }: { children: ReactNode; hint?: string }) {
   return (
     <div className="mb-2.5">
-      <div className="text-xs font-bold uppercase tracking-widest text-ink">{children}</div>
+      <div className="text-[10px] font-medium uppercase tracking-widest text-mute">{children}</div>
       {hint && <div className="mt-0.5 text-xs text-mute">{hint}</div>}
     </div>
   );
 }
 
 export const inputClass =
-  "w-full rounded-sm border border-charcoal/20 bg-surface px-4 py-3 text-sm outline-none transition-colors placeholder:text-soft focus:border-ink";
+  "w-full border-0 border-b border-ink/20 bg-transparent px-1 py-3 text-sm outline-none transition-colors placeholder:text-soft focus:border-accent";
 
 export function ErrorNote({ message }: { message: string | null }) {
   if (!message) return null;
@@ -81,32 +81,21 @@ export function ErrorNote({ message }: { message: string | null }) {
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-mute">{children}</div>;
+  return <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.4em] text-mute">{children}</div>;
 }
 
 export function PageTitle({ eyebrow, title, subtitle }: { eyebrow?: string; title: ReactNode; subtitle?: ReactNode }) {
   return (
     <div className="mb-10">
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h1 className="text-4xl font-bold leading-[0.95] tracking-[-0.005em] sm:text-6xl">{title}</h1>
+      <h1 className="text-5xl leading-[0.95] tracking-tighter sm:text-7xl">{title}</h1>
       {subtitle && <p className="mt-4 max-w-2xl text-mute">{subtitle}</p>}
     </div>
   );
 }
 
-/** Single serif-italic keyword inside a Clash Display headline. */
+/** Single gold italic keyword inside a serif headline. */
 export function Accent({ children }: { children: ReactNode }) {
-  return <span className="font-serif font-normal italic tracking-normal text-accent">{children}</span>;
+  return <span className="font-serif italic text-accent">{children}</span>;
 }
 
-/** The typographic echo stack: word + 4 fading grey copies behind it. */
-export function Echo({ text, className = "" }: { text: string; className?: string }) {
-  return (
-    <span className={`echo isolate ${className}`}>
-      {[0, 1, 2, 3].map((i) => (
-        <span key={i} className="echo-layer" aria-hidden>{text}</span>
-      ))}
-      {text}
-    </span>
-  );
-}

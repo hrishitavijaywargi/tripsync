@@ -1,16 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 import { Button, Card, ErrorNote, inputClass, Label, PageTitle } from "@/components/ui";
 import { api, saveIdentity } from "@/lib/client";
 import { GROUP_TYPES, PURPOSES } from "@/lib/constants";
 import type { GroupType, TripPurpose } from "@/lib/types";
 
+// Suspense is required around useSearchParams on a statically rendered page.
 export default function CreateTripPage() {
-  const [tripName, setTripName] = useState("");
+  return (
+    <Suspense>
+      <CreateTripForm />
+    </Suspense>
+  );
+}
+
+function CreateTripForm() {
+  // Optional prefill from the landing page quick-start panel (?name=…&people=…)
+  const params = useSearchParams();
+  const [tripName, setTripName] = useState(params.get("name") ?? "");
   const [coordinatorName, setCoordinatorName] = useState("");
-  const [numberOfPeople, setNumberOfPeople] = useState(5);
+  const [numberOfPeople, setNumberOfPeople] = useState(() => {
+    const n = Number(params.get("people"));
+    return Number.isInteger(n) && n >= 2 && n <= 30 ? n : 5;
+  });
   const [groupType, setGroupType] = useState<GroupType | null>(null);
   const [tripPurpose, setTripPurpose] = useState<TripPurpose | null>(null);
   const [loading, setLoading] = useState(false);
@@ -65,7 +80,7 @@ export default function CreateTripPage() {
           <div className="mt-6 border-t border-line pt-6">
             <Link
               href={`/trip/${created.id}`}
-              className="inline-flex inline-flex items-center justify-center rounded-full border border-accent bg-accent px-6 py-3 text-sm font-bold tracking-wide text-surface transition-colors hover:border-ink hover:bg-ink"
+              className="inline-flex inline-flex items-center justify-center border border-ink bg-ink px-7 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors duration-500 hover:border-accent hover:bg-accent"
             >
               Add my preferences →
             </Link>
