@@ -1,5 +1,7 @@
 # TripSync
 
+**Live:** https://tripsync-taupe.vercel.app
+
 AI-powered group trip planning. Everyone submits preferences through one link; Gemini compares them and
 shows 2–3 balanced options with each person's fit, a **What-If simulator** to test one change, and a
 decision view where the group picks — TripSync never decides for them.
