@@ -23,12 +23,12 @@ export function OptionCard({
     <Card className="flex h-full flex-col">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-stone-500">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-mute">
             Option {letter} {badge}
           </div>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight">{option.destination}</h2>
         </div>
-        <div className={`shrink-0 rounded-2xl px-3 py-2 text-center ${allGood ? "bg-emerald-600 text-white" : "bg-emerald-50 text-emerald-800"}`}>
+        <div className={`shrink-0 rounded-sm px-3 py-2 text-center ${allGood ? "bg-ink text-paper" : "border border-charcoal text-ink"}`}>
           <div className="text-lg font-semibold leading-tight">{good}/{total}</div>
           <div className="text-[10px] uppercase tracking-wide">group fit</div>
         </div>
@@ -40,21 +40,21 @@ export function OptionCard({
         <Fact label="Type" value={option.destination_type} />
       </dl>
 
-      <div className="mt-5 overflow-hidden rounded-xl border border-stone-200">
+      <div className="mt-5 overflow-hidden rounded-sm border border-line">
         <table className="w-full text-sm">
-          <thead className="bg-stone-50 text-left text-xs text-stone-500">
+          <thead className="bg-paper text-left text-xs text-mute">
             <tr>
-              <th className="px-3 py-2 font-medium">Person</th>
-              <th className="px-3 py-2 font-medium">Fit</th>
-              {!compact && <th className="hidden px-3 py-2 font-medium sm:table-cell">Why</th>}
+              <th className="px-3 py-2 font-bold">Person</th>
+              <th className="px-3 py-2 font-bold">Fit</th>
+              {!compact && <th className="hidden px-3 py-2 font-bold sm:table-cell">Why</th>}
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-100">
+          <tbody className="divide-y divide-line">
             {option.participant_fit.map((p) => (
               <tr key={p.name}>
-                <td className="px-3 py-2 font-medium">{p.name}</td>
+                <td className="px-3 py-2 font-bold">{p.name}</td>
                 <td className="px-3 py-2"><FitBadge fit={p.fit} /></td>
-                {!compact && <td className="hidden px-3 py-2 text-stone-600 sm:table-cell">{p.reason}</td>}
+                {!compact && <td className="hidden px-3 py-2 text-mute sm:table-cell">{p.reason}</td>}
               </tr>
             ))}
           </tbody>
@@ -63,12 +63,12 @@ export function OptionCard({
 
       <div className="mt-5 space-y-3 text-sm">
         <div>
-          <div className="font-medium text-emerald-800">Why it works</div>
-          <p className="mt-0.5 text-stone-700">{option.why_it_works}</p>
+          <div className="font-bold text-ink">Why it works</div>
+          <p className="mt-0.5 text-ink/80">{option.why_it_works}</p>
         </div>
-        <div className="rounded-xl bg-amber-50 p-3">
-          <div className="font-medium text-amber-900">Main conflict</div>
-          <p className="mt-0.5 text-amber-900/80">{option.main_conflict}</p>
+        <div className="border-l-2 border-ink bg-paper p-3">
+          <div className="font-bold text-ink">Main conflict</div>
+          <p className="mt-0.5 text-mute">{option.main_conflict}</p>
         </div>
       </div>
 
@@ -79,9 +79,9 @@ export function OptionCard({
 
 function Fact({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl bg-stone-50 px-3 py-2">
-      <dt className="text-xs text-stone-500">{label}</dt>
-      <dd className="font-medium">{value}</dd>
+    <div className="rounded-sm bg-paper px-3 py-2">
+      <dt className="text-xs text-mute">{label}</dt>
+      <dd className="font-bold">{value}</dd>
     </div>
   );
 }

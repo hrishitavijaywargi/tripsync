@@ -21,15 +21,15 @@ export default function TripPage() {
   const [genError, setGenError] = useState<string | null>(null);
 
 
-  if (loading) return <Centered><Spinner className="h-6 w-6 text-emerald-600" /></Centered>;
+  if (loading) return <Centered><Spinner className="h-6 w-6 text-ink" /></Centered>;
   if (error || !trip) {
     return (
       <Centered>
         <Card className="max-w-md text-center">
           <div className="text-3xl">🧭</div>
           <h1 className="mt-3 text-lg font-semibold">Trip not found</h1>
-          <p className="mt-1 text-sm text-stone-600">{error ?? "Check the link and try again."}</p>
-          <Link href="/join" className="mt-4 inline-block text-sm font-medium text-emerald-700">Try another link →</Link>
+          <p className="mt-1 text-sm text-mute">{error ?? "Check the link and try again."}</p>
+          <Link href="/join" className="mt-4 inline-block text-sm font-bold text-ink">Try another link →</Link>
         </Card>
       </Centered>
     );
@@ -82,9 +82,9 @@ export default function TripPage() {
   } else {
     main = (
       <Card className="text-center">
-        <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-50 text-2xl">✅</div>
+        <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-paper text-2xl">✅</div>
         <h2 className="mt-4 text-xl font-semibold">Your preferences are saved.</h2>
-        <p className="mt-1 text-stone-600">
+        <p className="mt-1 text-mute">
           {trip.participants.filter((p) => p.submitted).length >= trip.number_of_people
             ? "Everyone has submitted — see the panel for next steps."
             : "Waiting for the rest of the group."}
@@ -109,11 +109,11 @@ export default function TripPage() {
     <div>
       <div className="mb-8">
         <div className="mb-2 flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full bg-stone-100 px-2.5 py-1 text-stone-700">{group?.emoji} {group?.label}</span>
-          <span className="rounded-full bg-stone-100 px-2.5 py-1 text-stone-700">{purpose?.emoji} {purpose?.label}</span>
+          <span className="rounded-full bg-paper px-2.5 py-1 text-ink/80">{group?.emoji} {group?.label}</span>
+          <span className="rounded-full bg-paper px-2.5 py-1 text-ink/80">{purpose?.emoji} {purpose?.label}</span>
         </div>
         <h1 className="text-3xl font-semibold tracking-tight">{trip.trip_name}</h1>
-        <p className="mt-1 text-stone-600">Coordinated by {trip.coordinator_name}</p>
+        <p className="mt-1 text-mute">Coordinated by {trip.coordinator_name}</p>
       </div>
       <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
         <div>{main}</div>
@@ -146,10 +146,10 @@ function ReadyPanel(props: {
 }) {
   if (props.hasResults) {
     return (
-      <Card className="border-emerald-200 bg-emerald-50/50">
-        <p className="font-medium">Trip options are ready.</p>
+      <Card className="border-charcoal">
+        <p className="font-bold">Trip options are ready.</p>
         <div className="mt-3 flex flex-col gap-2">
-          <Link href={`/trip/${props.tripId}/results`} className="rounded-full bg-emerald-600 px-4 py-2.5 text-center text-sm font-medium text-white hover:bg-emerald-700">
+          <Link href={`/trip/${props.tripId}/results`} className="text-center inline-flex items-center justify-center rounded-full border border-ink bg-ink px-6 py-3 text-sm font-bold tracking-wide text-paper transition-colors hover:bg-paper hover:text-ink">
             View options
           </Link>
           {props.isCoordinator && (
@@ -161,17 +161,17 @@ function ReadyPanel(props: {
   }
   if (!props.allReady) return null;
   return (
-    <Card className="border-emerald-200 bg-emerald-50/50">
-      <p className="font-medium">All preferences are ready.</p>
+    <Card className="border-charcoal">
+      <p className="font-bold">All preferences are ready.</p>
       {props.isCoordinator ? (
         <>
           <Button className="mt-3 w-full" loading={props.generating} onClick={props.onGenerate}>
             {props.generating ? "Comparing everyone's preferences…" : "Generate Trip Options"}
           </Button>
-          {props.generating && <p className="mt-2 text-xs text-stone-500">This usually takes 10–30 seconds.</p>}
+          {props.generating && <p className="mt-2 text-xs text-mute">This usually takes 10–30 seconds.</p>}
         </>
       ) : (
-        <p className="mt-1 text-sm text-stone-600">Waiting for {props.coordinator} to generate trip options.</p>
+        <p className="mt-1 text-sm text-mute">Waiting for {props.coordinator} to generate trip options.</p>
       )}
     </Card>
   );
@@ -198,7 +198,7 @@ function JoinStep({ tripId, coordinator, onJoined }: { tripId: string; coordinat
   return (
     <Card>
       <h2 className="text-xl font-semibold">Hi! What&apos;s your name?</h2>
-      <p className="mt-1 text-sm text-stone-600">{coordinator} invited you to share your trip preferences.</p>
+      <p className="mt-1 text-sm text-mute">{coordinator} invited you to share your trip preferences.</p>
       <form onSubmit={submit} className="mt-5 space-y-4">
         <div>
           <Label hint="Already submitted? Enter the same name to edit.">Your name</Label>

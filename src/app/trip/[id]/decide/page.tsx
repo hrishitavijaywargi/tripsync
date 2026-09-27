@@ -16,13 +16,13 @@ export default function DecidePage() {
   const [saveError, setSaveError] = useState<string | null>(null);
 
 
-  if (loading) return <div className="grid min-h-[50vh] place-items-center"><Spinner className="h-6 w-6 text-emerald-600" /></div>;
+  if (loading) return <div className="grid min-h-[50vh] place-items-center"><Spinner className="h-6 w-6 text-ink" /></div>;
   if (error || !trip) return <Card>{error ?? "Trip not found."}</Card>;
   if (!trip.recommendations) {
     return (
       <Card className="mx-auto max-w-md text-center">
-        <p className="font-medium">No trip options yet.</p>
-        <Link href={`/trip/${id}`} className="mt-4 inline-block text-sm font-medium text-emerald-700">← Back to group status</Link>
+        <p className="font-bold">No trip options yet.</p>
+        <Link href={`/trip/${id}`} className="mt-4 inline-block text-sm font-bold text-ink">← Back to group status</Link>
       </Card>
     );
   }
@@ -48,7 +48,7 @@ export default function DecidePage() {
 
   return (
     <div>
-      <Link href={`/trip/${id}/results`} className="text-sm text-stone-500 hover:text-stone-900">← Back to options</Link>
+      <Link href={`/trip/${id}/results`} className="text-sm text-mute hover:text-ink">← Back to options</Link>
       <div className="mt-3">
         <PageTitle
           title="Ready to decide?"
@@ -57,8 +57,8 @@ export default function DecidePage() {
       </div>
 
       {!me && (
-        <div className="mb-6 rounded-2xl bg-amber-50 p-4 text-sm text-amber-900">
-          To choose an option, first <Link href={`/trip/${id}`} className="font-medium underline">open the trip and enter your name</Link> on this device.
+        <div className="mb-6 border-l-2 border-ink bg-white p-4 text-sm">
+          To choose an option, first <Link href={`/trip/${id}`} className="font-bold underline">open the trip and enter your name</Link> on this device.
         </div>
       )}
       <ErrorNote message={saveError} />
@@ -73,12 +73,12 @@ export default function DecidePage() {
               option={o}
               letter={String.fromCharCode(65 + i)}
               total={total}
-              badge={mine ? <span className="rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] text-white">Your pick</span> : null}
+              badge={mine ? <span className="rounded-full bg-ink px-2 py-0.5 text-[10px] text-white">Your pick</span> : null}
               footer={
                 <div className="space-y-3">
-                  <div className="text-sm text-stone-600">
+                  <div className="text-sm text-mute">
                     {choosers.length ? (
-                      <>Preferred by <b className="text-stone-900">{choosers.map((c) => c.name).join(", ")}</b></>
+                      <>Preferred by <b className="text-ink">{choosers.map((c) => c.name).join(", ")}</b></>
                     ) : (
                       "No one has picked this yet"
                     )}

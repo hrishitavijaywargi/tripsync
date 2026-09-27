@@ -13,14 +13,14 @@ export default function ResultsPage() {
   const { trip, loading, error } = useTrip(id);
   const [whatIf, setWhatIf] = useState(false);
 
-  if (loading) return <div className="grid min-h-[50vh] place-items-center"><Spinner className="h-6 w-6 text-emerald-600" /></div>;
+  if (loading) return <div className="grid min-h-[50vh] place-items-center"><Spinner className="h-6 w-6 text-ink" /></div>;
   if (error || !trip) return <Card>{error ?? "Trip not found."}</Card>;
   if (!trip.recommendations) {
     return (
       <Card className="mx-auto max-w-md text-center">
-        <p className="font-medium">No trip options yet.</p>
-        <p className="mt-1 text-sm text-stone-600">Once everyone has submitted, the coordinator can generate them.</p>
-        <Link href={`/trip/${id}`} className="mt-4 inline-block text-sm font-medium text-emerald-700">← Back to group status</Link>
+        <p className="font-bold">No trip options yet.</p>
+        <p className="mt-1 text-sm text-mute">Once everyone has submitted, the coordinator can generate them.</p>
+        <Link href={`/trip/${id}`} className="mt-4 inline-block text-sm font-bold text-ink">← Back to group status</Link>
       </Card>
     );
   }
@@ -30,7 +30,7 @@ export default function ResultsPage() {
 
   return (
     <div>
-      <Link href={`/trip/${id}`} className="text-sm text-stone-500 hover:text-stone-900">← {trip.trip_name}</Link>
+      <Link href={`/trip/${id}`} className="text-sm text-mute hover:text-ink">← {trip.trip_name}</Link>
       <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
         <PageTitle title="Here's what works for your group." subtitle={recs.group_summary} />
       </div>
@@ -41,7 +41,7 @@ export default function ResultsPage() {
         )}
         <Link
           href={`/trip/${id}/decide`}
-          className="rounded-full bg-stone-900 px-6 py-3 text-base font-medium text-white hover:bg-stone-700"
+          className="inline-flex items-center justify-center rounded-full border border-ink bg-ink px-6 py-3 text-sm font-bold tracking-wide text-paper transition-colors hover:bg-paper hover:text-ink"
         >
           Ready to decide →
         </Link>
@@ -59,7 +59,7 @@ export default function ResultsPage() {
         ))}
       </div>
 
-      <p className="mt-8 text-center text-xs text-stone-400">
+      <p className="mt-8 text-center text-xs text-soft">
         Budgets are AI estimates, not live prices. TripSync doesn&apos;t book anything or decide for you.
       </p>
     </div>

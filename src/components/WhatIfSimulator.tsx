@@ -68,11 +68,11 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
   }
 
   return (
-    <div className="rounded-3xl border-2 border-emerald-200 bg-emerald-50/40 p-4 sm:p-6">
+    <div className="rounded-sm border border-charcoal bg-white p-4 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold">🔄 What If?</h2>
-          <p className="mt-1 text-sm text-stone-600">
+          <p className="mt-1 text-sm text-mute">
             Change <b>one</b> thing and see what happens. This is a temporary scenario — nobody&apos;s saved preferences change.
           </p>
         </div>
@@ -89,13 +89,13 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
                 onClick={() => setKind(k.kind)}
                 disabled={k.kind === "dealbreaker" && withDealBreakers.length === 0}
                 aria-pressed={kind === k.kind}
-                className={`rounded-2xl border-2 bg-white p-4 text-left transition disabled:opacity-40 ${
-                  kind === k.kind ? "border-emerald-500 ring-4 ring-emerald-500/10" : "border-stone-200 hover:border-stone-300"
+                className={`rounded-sm border-2 bg-white p-4 text-left transition disabled:opacity-40 ${
+                  kind === k.kind ? "border-ink bg-ink text-paper" : "border-line hover:border-charcoal"
                 }`}
               >
                 <div className="text-2xl">{k.emoji}</div>
-                <div className="mt-2 font-medium">{k.title}</div>
-                <div className="text-xs text-stone-500">{k.question}</div>
+                <div className="mt-2 font-bold">{k.title}</div>
+                <div className="text-xs text-mute">{k.question}</div>
               </button>
             ))}
           </div>
@@ -135,7 +135,7 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
               )}
 
               {kind === "flights" && (
-                <p className="text-sm text-stone-700">
+                <p className="text-sm text-ink/80">
                   Flight preference: <b>No → Yes</b>. Any &quot;no flights&quot; restriction will be treated as removed for this scenario.
                 </p>
               )}
@@ -148,8 +148,8 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
                       {withDealBreakers.map((p) => <option key={p.id} value={p.name}>{p.name}</option>)}
                     </select>
                   </div>
-                  <div className="rounded-xl bg-stone-50 p-3 text-sm">
-                    <span className="text-stone-500">Currently: </span>
+                  <div className="rounded-sm bg-paper p-3 text-sm">
+                    <span className="text-mute">Currently: </span>
                     &quot;{withDealBreakers.find((p) => p.name === dbWho)?.preferences?.deal_breakers}&quot;
                   </div>
                   <div>
@@ -171,33 +171,33 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
       {result && (
         <div className="mt-6 space-y-5">
           <Card className="bg-white">
-            <div className="text-xs font-semibold uppercase tracking-wider text-stone-500">The change</div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-mute">The change</div>
             <p className="mt-1 text-sm">{result.change_description}</p>
           </Card>
 
           <div className="grid gap-4 md:grid-cols-2">
             <Card>
-              <div className="text-xs font-semibold uppercase tracking-wider text-stone-500">Before</div>
+              <div className="text-xs font-semibold uppercase tracking-wider text-mute">Before</div>
               <ul className="mt-3 space-y-2">
                 {original.map((o) => (
                   <li key={o.id} className="flex justify-between text-sm">
-                    <span className="font-medium">{o.destination}</span>
+                    <span className="font-bold">{o.destination}</span>
                     <span>{fitCount(o)}/{total} fit</span>
                   </li>
                 ))}
               </ul>
             </Card>
-            <Card className="border-emerald-300">
-              <div className="text-xs font-semibold uppercase tracking-wider text-emerald-700">After</div>
+            <Card className="border-charcoal">
+              <div className="text-xs font-semibold uppercase tracking-wider text-ink">After</div>
               <ul className="mt-3 space-y-2">
                 {result.options.map((o) => {
                   const before = original.find((x) => x.id === o.id || x.destination === o.destination);
                   return (
                     <li key={o.id + o.destination} className="flex justify-between gap-2 text-sm">
-                      <span className="font-medium">{o.destination}</span>
+                      <span className="font-bold">{o.destination}</span>
                       <span>
                         {!before ? (
-                          <span className="mr-2 rounded-full bg-emerald-600 px-2 py-0.5 text-xs text-white">New option</span>
+                          <span className="mr-2 rounded-full bg-ink px-2 py-0.5 text-xs text-white">New option</span>
                         ) : (
                           <Delta from={fitCount(before)} to={fitCount(o)} />
                         )}
@@ -207,7 +207,7 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
                   );
                 })}
                 {result.options_no_longer_suitable.map((o) => (
-                  <li key={o.destination} className="flex justify-between text-sm text-stone-400 line-through">
+                  <li key={o.destination} className="flex justify-between text-sm text-soft line-through">
                     <span>{o.destination}</span>
                     <span>not suitable</span>
                   </li>
@@ -218,34 +218,34 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
 
           <Card>
             <h3 className="font-semibold">What changed?</h3>
-            <p className="mt-1 text-stone-700">{result.what_changed}</p>
+            <p className="mt-1 text-ink/80">{result.what_changed}</p>
 
             <div className="mt-5 grid gap-5 md:grid-cols-3">
               <div>
-                <div className="text-sm font-medium text-emerald-800">New options unlocked</div>
+                <div className="text-sm font-bold text-ink">New options unlocked</div>
                 {result.new_options_unlocked.length ? (
-                  <ul className="mt-1 list-inside list-disc text-sm text-stone-700">
+                  <ul className="mt-1 list-inside list-disc text-sm text-ink/80">
                     {result.new_options_unlocked.map((d) => <li key={d}>{d}</li>)}
                   </ul>
                 ) : (
-                  <p className="mt-1 text-sm text-stone-500">None</p>
+                  <p className="mt-1 text-sm text-mute">None</p>
                 )}
               </div>
               <div>
-                <div className="text-sm font-medium text-rose-800">Options no longer suitable</div>
+                <div className="text-sm font-bold text-ink">Options no longer suitable</div>
                 {result.options_no_longer_suitable.length ? (
-                  <ul className="mt-1 space-y-1 text-sm text-stone-700">
+                  <ul className="mt-1 space-y-1 text-sm text-ink/80">
                     {result.options_no_longer_suitable.map((o) => (
                       <li key={o.destination}><b>{o.destination}</b> — {o.reason}</li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="mt-1 text-sm text-stone-500">None</p>
+                  <p className="mt-1 text-sm text-mute">None</p>
                 )}
               </div>
               <div>
-                <div className="text-sm font-medium">People affected</div>
-                <ul className="mt-1 space-y-1 text-sm text-stone-700">
+                <div className="text-sm font-bold">People affected</div>
+                <ul className="mt-1 space-y-1 text-sm text-ink/80">
                   {result.people_affected.map((p) => (
                     <li key={p.name}><b>{p.name}:</b> {p.change}</li>
                   ))}
@@ -255,7 +255,7 @@ export function WhatIfSimulator({ trip, onClose }: { trip: TripWithParticipants;
           </Card>
 
           <details className="group">
-            <summary className="cursor-pointer text-sm font-medium text-emerald-800">See full scenario options</summary>
+            <summary className="cursor-pointer text-sm font-bold text-ink">See full scenario options</summary>
             <div className="mt-4 grid gap-4 lg:grid-cols-2">
               {result.options.map((o, i) => (
                 <OptionCard key={o.id + i} option={o} letter={String.fromCharCode(65 + i)} total={total} compact />
@@ -277,7 +277,7 @@ function Delta({ from, to }: { from: number; to: number }) {
   if (from === to) return null;
   const up = to > from;
   return (
-    <span className={`mr-2 rounded-full px-2 py-0.5 text-xs ${up ? "bg-emerald-100 text-emerald-800" : "bg-rose-100 text-rose-800"}`}>
+    <span className={`mr-2 rounded-full px-2 py-0.5 text-xs ${up ? "bg-ink text-paper" : "border border-charcoal/30 text-mute"}`}>
       {up ? "▲" : "▼"} {from}→{to}
     </span>
   );

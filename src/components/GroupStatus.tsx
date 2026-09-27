@@ -10,26 +10,26 @@ export function GroupStatus({ trip }: { trip: TripWithParticipants }) {
     <Card>
       <div className="flex items-baseline justify-between">
         <h2 className="font-semibold">Group status</h2>
-        <span className="text-xs text-stone-500">updates live</span>
+        <span className="text-xs text-mute">updates live</span>
       </div>
-      <p className="mt-1 text-sm text-stone-600">
-        <b className="text-stone-900">{submitted} of {trip.number_of_people}</b> people have submitted
+      <p className="mt-1 text-sm text-mute">
+        <b className="text-ink">{submitted} of {trip.number_of_people}</b> people have submitted
       </p>
-      <div className="mt-3 h-2 overflow-hidden rounded-full bg-stone-100">
-        <div className="h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${pct}%` }} />
+      <div className="mt-3 h-2 overflow-hidden rounded-full bg-charcoal/10">
+        <div className="h-full rounded-full bg-ink transition-all" style={{ width: `${pct}%` }} />
       </div>
       <ul className="mt-4 space-y-2 text-sm">
         {trip.participants.map((p) => (
           <li key={p.id} className="flex items-center justify-between">
             <span>
               {p.name}
-              {p.name === trip.coordinator_name && <span className="ml-1.5 text-xs text-stone-400">coordinator</span>}
+              {p.name === trip.coordinator_name && <span className="ml-1.5 text-xs text-soft">coordinator</span>}
             </span>
             <span title={p.submitted ? "Submitted" : "Joined, not submitted yet"}>{p.submitted ? "✅" : "⏳"}</span>
           </li>
         ))}
         {Array.from({ length: notJoined }).map((_, i) => (
-          <li key={`empty-${i}`} className="flex items-center justify-between text-stone-400">
+          <li key={`empty-${i}`} className="flex items-center justify-between text-soft">
             <span>Not joined yet</span>
             <span>⏳</span>
           </li>

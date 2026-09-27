@@ -46,10 +46,10 @@ export default function CreateTripPage() {
     return (
       <div className="mx-auto max-w-xl">
         <Card className="text-center">
-          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-50 text-2xl">🎉</div>
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-paper text-2xl">🎉</div>
           <h1 className="mt-4 text-2xl font-semibold">Your trip is ready!</h1>
-          <p className="mt-2 text-stone-600">Share this link with everyone in your group.</p>
-          <div className="mt-6 flex items-center gap-2 rounded-xl border border-stone-200 bg-stone-50 p-2 pl-4 text-left">
+          <p className="mt-2 text-mute">Share this link with everyone in your group.</p>
+          <div className="mt-6 flex items-center gap-2 rounded-sm border border-line bg-paper p-2 pl-4 text-left">
             <code className="flex-1 truncate text-sm">{link}</code>
             <Button
               onClick={async () => {
@@ -61,11 +61,11 @@ export default function CreateTripPage() {
               {copied ? "Copied ✓" : "Copy Link"}
             </Button>
           </div>
-          <p className="mt-4 text-xs text-stone-500">Everyone uses this same link to submit their preferences.</p>
-          <div className="mt-6 border-t border-stone-100 pt-6">
+          <p className="mt-4 text-xs text-mute">Everyone uses this same link to submit their preferences.</p>
+          <div className="mt-6 border-t border-line pt-6">
             <Link
               href={`/trip/${created.id}`}
-              className="inline-flex rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-stone-700"
+              className="inline-flex inline-flex items-center justify-center rounded-full border border-ink bg-ink px-6 py-3 text-sm font-bold tracking-wide text-paper transition-colors hover:bg-paper hover:text-ink"
             >
               Add my preferences →
             </Link>
@@ -92,7 +92,7 @@ export default function CreateTripPage() {
             <div>
               <Label hint="Including you">Number of people</Label>
               <div className="flex items-center gap-2">
-                <button type="button" className="h-10 w-10 rounded-xl border border-stone-300 text-lg hover:bg-stone-50" onClick={() => setNumberOfPeople((n) => Math.max(2, n - 1))}>−</button>
+                <button type="button" className="h-10 w-10 rounded-sm border border-charcoal/20 text-lg hover:bg-paper" onClick={() => setNumberOfPeople((n) => Math.max(2, n - 1))}>−</button>
                 <input
                   type="number"
                   min={2}
@@ -101,14 +101,14 @@ export default function CreateTripPage() {
                   value={numberOfPeople}
                   onChange={(e) => setNumberOfPeople(Math.min(30, Math.max(2, Number(e.target.value) || 2)))}
                 />
-                <button type="button" className="h-10 w-10 rounded-xl border border-stone-300 text-lg hover:bg-stone-50" onClick={() => setNumberOfPeople((n) => Math.min(30, n + 1))}>+</button>
+                <button type="button" className="h-10 w-10 rounded-sm border border-charcoal/20 text-lg hover:bg-paper" onClick={() => setNumberOfPeople((n) => Math.min(30, n + 1))}>+</button>
               </div>
             </div>
           </div>
         </Card>
 
         <div>
-          <h2 className="mb-3 font-medium">Who are you planning with?</h2>
+          <h2 className="mb-3 font-bold">Who are you planning with?</h2>
           <div className="grid gap-3 sm:grid-cols-3">
             {GROUP_TYPES.map((g) => (
               <ChoiceCard key={g.value} selected={groupType === g.value} onClick={() => setGroupType(g.value)} emoji={g.emoji} title={g.label} hint={g.hint} />
@@ -117,7 +117,7 @@ export default function CreateTripPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 font-medium">What&apos;s the purpose of the trip?</h2>
+          <h2 className="mb-3 font-bold">What&apos;s the purpose of the trip?</h2>
           <div className="grid grid-cols-2 gap-3">
             {PURPOSES.map((p) => (
               <ChoiceCard key={p.value} selected={tripPurpose === p.value} onClick={() => setTripPurpose(p.value)} emoji={p.emoji} title={p.label} />
@@ -140,13 +140,13 @@ function ChoiceCard(props: { selected: boolean; onClick: () => void; emoji: stri
       type="button"
       onClick={props.onClick}
       aria-pressed={props.selected}
-      className={`rounded-2xl border-2 bg-white p-5 text-left transition ${
-        props.selected ? "border-emerald-500 ring-4 ring-emerald-500/10" : "border-stone-200 hover:border-stone-300"
+      className={`rounded-sm border-2 bg-white p-5 text-left transition ${
+        props.selected ? "border-ink bg-ink text-paper" : "border-line hover:border-charcoal"
       }`}
     >
       <div className="text-3xl">{props.emoji}</div>
-      <div className="mt-3 font-medium">{props.title}</div>
-      {props.hint && <div className="mt-0.5 text-sm text-stone-500">{props.hint}</div>}
+      <div className="mt-3 font-bold">{props.title}</div>
+      {props.hint && <div className="mt-0.5 text-sm text-mute">{props.hint}</div>}
     </button>
   );
 }

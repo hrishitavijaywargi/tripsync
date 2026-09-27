@@ -59,7 +59,7 @@ export function PreferenceForm({
   return (
     <Card>
       <h2 className="text-xl font-semibold">{participant.name}, what works for you?</h2>
-      <p className="mt-1 text-sm text-stone-600">Be honest — the AI balances everyone, so your deal-breakers are respected.</p>
+      <p className="mt-1 text-sm text-mute">Be honest — the AI balances everyone, so your deal-breakers are respected.</p>
 
       <form onSubmit={submit} className="mt-6 space-y-6">
         <div>
@@ -75,11 +75,11 @@ export function PreferenceForm({
           <Label hint="The window when you're free to travel">Available dates</Label>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <div className="mb-1 text-xs text-stone-500">Start date</div>
+              <div className="mb-1 text-xs text-mute">Start date</div>
               <input type="date" className={inputClass} min={today} value={startDate} onChange={(e) => setStartDate(e.target.value)} />
             </div>
             <div>
-              <div className="mb-1 text-xs text-stone-500">End date</div>
+              <div className="mb-1 text-xs text-mute">End date</div>
               <input type="date" className={inputClass} min={startDate || today} value={endDate} onChange={(e) => setEndDate(e.target.value)} />
             </div>
           </div>
@@ -126,7 +126,7 @@ function Chip({ selected, onClick, children, block }: { selected: boolean; onCli
       onClick={onClick}
       aria-pressed={selected}
       className={`rounded-full border px-4 py-2 text-sm transition ${block ? "w-full" : ""} ${
-        selected ? "border-emerald-500 bg-emerald-50 font-medium text-emerald-800" : "border-stone-300 bg-white hover:border-stone-400"
+        selected ? "border-ink bg-ink text-paper" : "border-charcoal/20 bg-white hover:border-charcoal"
       }`}
     >
       {children}

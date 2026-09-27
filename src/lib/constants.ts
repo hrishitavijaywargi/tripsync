@@ -29,7 +29,7 @@ export const PURPOSES: { value: TripPurpose; emoji: string; label: string }[] = 
 ];
 
 export const FIT_LABEL: Record<Fit, { emoji: string; label: string; className: string }> = {
-  good: { emoji: "🟢", label: "Good Fit", className: "bg-emerald-50 text-emerald-700 ring-emerald-200" },
-  partial: { emoji: "🟡", label: "Partial Fit", className: "bg-amber-50 text-amber-700 ring-amber-200" },
-  poor: { emoji: "🔴", label: "Poor Fit", className: "bg-rose-50 text-rose-700 ring-rose-200" },
+  good: { emoji: "🟢", label: "Good Fit", className: "border-ink bg-ink text-paper" },
+  partial: { emoji: "🟡", label: "Partial Fit", className: "border-charcoal/30 bg-white text-ink" },
+  poor: { emoji: "🔴", label: "Poor Fit", className: "border-charcoal/15 bg-paper text-mute" },
 };

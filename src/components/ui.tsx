@@ -4,10 +4,11 @@ import type { Fit, TripOption } from "@/lib/types";
 
 type Variant = "primary" | "secondary" | "ghost";
 
+// Pill buttons that invert on hover (Swiss high-contrast style).
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm shadow-emerald-600/20",
-  secondary: "bg-white text-stone-900 ring-1 ring-stone-300 hover:bg-stone-50",
-  ghost: "text-stone-600 hover:bg-stone-100",
+  primary: "bg-ink text-paper border border-ink hover:bg-paper hover:text-ink",
+  secondary: "bg-transparent text-ink border border-charcoal hover:bg-charcoal hover:text-paper",
+  ghost: "text-mute hover:text-ink",
 };
 
 export function Button({
@@ -21,7 +22,7 @@ export function Button({
     <button
       {...props}
       disabled={props.disabled || loading}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50 ${VARIANTS[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold tracking-wide transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${VARIANTS[variant]} ${className}`}
     >
       {loading && <Spinner />}
       {children}
@@ -29,8 +30,15 @@ export function Button({
   );
 }
 
+export const linkButton = {
+  primary:
+    "inline-flex items-center justify-center gap-2 rounded-full border border-ink bg-ink px-6 py-3 text-sm font-bold tracking-wide text-paper transition-colors duration-200 hover:bg-paper hover:text-ink",
+  secondary:
+    "inline-flex items-center justify-center gap-2 rounded-full border border-charcoal px-6 py-3 text-sm font-bold tracking-wide transition-colors duration-200 hover:bg-charcoal hover:text-paper",
+};
+
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-stone-200 bg-white p-5 sm:p-6 ${className}`}>{children}</div>;
+  return <div className={`rounded-sm border border-line bg-white p-5 sm:p-7 ${className}`}>{children}</div>;
 }
 
 export function Spinner({ className = "" }: { className?: string }) {
@@ -45,7 +53,7 @@ export function Spinner({ className = "" }: { className?: string }) {
 export function FitBadge({ fit }: { fit: Fit }) {
   const f = FIT_LABEL[fit] ?? FIT_LABEL.partial;
   return (
-    <span className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ${f.className}`}>
+    <span className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-0.5 text-xs font-bold ${f.className}`}>
       {f.emoji} {f.label.replace(" Fit", "")}
     </span>
   );
@@ -57,27 +65,48 @@ export function fitCount(option: TripOption) {
 
 export function Label({ children, hint }: { children: ReactNode; hint?: string }) {
   return (
-    <div className="mb-2">
-      <div className="text-sm font-medium text-stone-900">{children}</div>
-      {hint && <div className="text-xs text-stone-500">{hint}</div>}
+    <div className="mb-2.5">
+      <div className="text-xs font-bold uppercase tracking-widest text-ink">{children}</div>
+      {hint && <div className="mt-0.5 text-xs text-mute">{hint}</div>}
     </div>
   );
 }
 
 export const inputClass =
-  "w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-sm outline-none transition placeholder:text-stone-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10";
+  "w-full rounded-sm border border-charcoal/20 bg-white px-4 py-3 text-sm outline-none transition-colors placeholder:text-soft focus:border-ink";
 
 export function ErrorNote({ message }: { message: string | null }) {
   if (!message) return null;
-  return <p className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-700">{message}</p>;
+  return <p className="border-l-2 border-rose-600 bg-white px-4 py-3 text-sm text-rose-700">{message}</p>;
 }
 
-export function PageTitle({ eyebrow, title, subtitle }: { eyebrow?: string; title: string; subtitle?: ReactNode }) {
+export function Eyebrow({ children }: { children: ReactNode }) {
+  return <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-mute">{children}</div>;
+}
+
+export function PageTitle({ eyebrow, title, subtitle }: { eyebrow?: string; title: ReactNode; subtitle?: ReactNode }) {
   return (
-    <div className="mb-8">
-      {eyebrow && <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-emerald-700">{eyebrow}</div>}
-      <h1 className="text-2xl font-semibold tracking-tight text-stone-900 sm:text-3xl">{title}</h1>
-      {subtitle && <p className="mt-2 text-stone-600">{subtitle}</p>}
+    <div className="mb-10">
+      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+      <h1 className="text-4xl font-bold leading-[0.95] tracking-[-0.02em] sm:text-6xl">{title}</h1>
+      {subtitle && <p className="mt-4 max-w-2xl text-mute">{subtitle}</p>}
     </div>
+  );
+}
+
+/** Single serif-italic keyword inside a Clash Display headline. */
+export function Accent({ children }: { children: ReactNode }) {
+  return <span className="font-serif font-normal italic tracking-normal">{children}</span>;
+}
+
+/** The typographic echo stack: word + 4 fading grey copies behind it. */
+export function Echo({ text, className = "" }: { text: string; className?: string }) {
+  return (
+    <span className={`echo isolate ${className}`}>
+      {[0, 1, 2, 3].map((i) => (
+        <span key={i} className="echo-layer" aria-hidden>{text}</span>
+      ))}
+      {text}
+    </span>
   );
 }
